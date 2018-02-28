@@ -19,6 +19,7 @@ const mapStateToProps = (state, ownProps) => {
 		userCurrentInput: state.userCurrentInput,
 		userInputHistory: state.userInputHistory,
 		user: state.user,
+		users: state.users,
 		logs: state.logs,
 		// referredId: ownProps.location.query.referredId,
 	};

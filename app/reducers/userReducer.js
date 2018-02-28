@@ -1,5 +1,6 @@
 import {
 	NEW_USER,
+	UPDATE_USERS,
 } from '../actions';
 
 const user = (state = {
@@ -19,6 +20,17 @@ const user = (state = {
 	}
 };
 
+const users = (state = [], action) => {
+	console.log('action', action);
+	switch (action.type) {
+		case UPDATE_USERS:
+			return state = action.users;
+		default:
+			return state;
+	}
+};
+
 export default ({
 	user,
+	users,
 });

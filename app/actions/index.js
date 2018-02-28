@@ -7,6 +7,7 @@ export const NEW_LOG_ENTRY = config.actionConst.NEW_LOG_ENTRY;
 export const SEND_COMMAND = config.actionConst.SEND_COMMAND;
 export const INVALID_COMMAND = config.actionConst.INVALID_COMMAND;
 export const NEW_USER = config.actionConst.NEW_USER;
+export const UPDATE_USERS = config.actionConst.UPDATE_USERS;
 export const USER_HIT = 'USER_HIT';
 export const USER_SPLIT = 'USER_SPLIT';
 export const USER_DOUBLE = 'USER_DOUBLE';

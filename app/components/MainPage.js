@@ -8,12 +8,11 @@ import styles from '../styles/MainPage.css';
 
 class MainPage extends Component {
 	render() {
-		console.log('mainpage this', this);
 		return (
 			<div className={styles.WindowDimension}>
 				<ChatPanel />
 				<TablesPanel handleAction={this.props.onHandleAction} user={this.props.user} />
-				<PlayersStats />
+				<PlayersStats users={this.props.users} />
 			</div>
 		)
 	}

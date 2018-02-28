@@ -26,10 +26,19 @@ function Game() {
 // 	}
 // };
 
-Game.prototype.addUser = function(username) {
-	var user = new User(username);
+Game.prototype.addUser = function(username, id) {
+	var user = new User(username, id);
 	this.users.push(user);
 	return user;
+};
+
+Game.prototype.removeUser = function(id) {
+	for (var i = 0; i < this.users.length; i++) {
+		if (this.users[i].id == id) {
+			this.users.splice(i, 1);
+			break;
+		}
+	}
 };
 
 Game.prototype.drawCards = function(amount) {

@@ -8,8 +8,16 @@ class PlayersStats extends Component {
 	render() {
 		return (
 			<div className={styles.PanelDimensions + " " + styles.PlayersStats}>
-				<PlayerTab />
-				<PlayerTab />
+				{
+					this.props.users ?
+						this.props.users.map ((user) => {
+							console.log('LOOPING');
+							return (
+								<PlayerTab user={user}/>
+							);
+						})
+					 : null
+				}
 			</div>
 		)
 	}

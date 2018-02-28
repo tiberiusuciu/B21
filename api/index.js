@@ -34,13 +34,14 @@ server.listen(port, function(error) {
 
 // Oracle section
 var game = new Game();
-
+var id = 0;
 io.on('connection', function (socket) {
 
 	// Making new user here
-	let user = game.addUser('Chris');
+	let user = game.addUser('Anonymous', id++);
   user.dealCards(game.drawCards(2));
 	socket.emit('action', {type: config.actionConst.NEW_USER, user});
+  io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
 
 	socket.on("action", function (action) {
 		switch (action.type) {
@@ -52,6 +53,8 @@ io.on('connection', function (socket) {
 	})
 
 	socket.on("disconnect", function () {
+    game.removeUser(user.id);
+    io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
 		console.log('A user has disconnected!');
 	})
 });
