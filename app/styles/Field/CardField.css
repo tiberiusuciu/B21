@@ -1,0 +1,17 @@
+:local(.cardField) {
+	background-color: plum;
+	display: inline-block;
+	width: 100%;
+}
+
+:local(.dimensions) {
+	width: 100%;
+}
+
+:local(.borderBottom) {
+	border-bottom: 1px solid #333;
+}
+
+:local(.borderTop) {
+	border-top: 1px solid #333;
+}

@@ -1,0 +1,7 @@
+:local(.display) {
+	background-color: gold;
+  display: block;
+	display: block;
+	width: 300px;
+	height: 400px;
+}

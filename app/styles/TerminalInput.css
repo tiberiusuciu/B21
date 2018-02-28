@@ -1,0 +1,28 @@
+:local(.terminalInputSignature) {
+	color: white;
+	display: inline-block;
+}
+
+:local(.terminalInputField) {
+	overflow: hidden;
+	display: inline-block;
+	flex: auto;
+}
+
+:local(.terminalInputText) {
+	background-color: black;
+	color: white;
+	width: 100%;
+	border: 0px;
+	padding: 0px;
+	padding-left: 10px;
+	caret-color: white;
+}
+
+:local(.terminalInputText:focus) {
+	outline: none;
+}
+
+:local(.terminalInputContainer) {
+	display: flex;
+}

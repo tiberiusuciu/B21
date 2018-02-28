@@ -1,0 +1,24 @@
+:local(.terminalLogs) {
+	width: 100%;
+	height: 97vh;
+	padding: 0px 10px;
+}
+
+:local(.terminalInput) {
+	padding: 0px 10px;
+	width: 100%;
+	line-height: 3vh;
+}
+
+:local(.terminalLogs)::-webkit-scrollbar {
+	width: 5px;
+}
+
+:local(.terminalLogs)::-webkit-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+:local(.terminalLogs)::-webkit-scrollbar-thumb {
+	background-color: crimson;
+	outline: 1px solid slategrey;
+}

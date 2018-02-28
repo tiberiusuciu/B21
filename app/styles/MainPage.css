@@ -1,0 +1,139 @@
+:local(.WindowDimension) {
+	display: flex;
+	height: 100vh;
+}
+
+:local(.PanelDimensions) {
+	flex: 1;
+	display: inline-block;
+	background-color: darkgreen;
+}
+
+:local(.ChatPanel) {
+	max-width: 300px;
+	background-color: white;
+}
+
+:local(.PlayersStats) {
+	max-width: 300px;
+	background-color: black;
+	color: black;
+}
+
+:local(.TablesPanel) {
+	min-width: 300px;
+	color: white;
+	border-left: 1px solid #333;
+	border-right: 1px solid #AAA;
+}
+
+:local(.SplitTableDimensions) {
+	display: flex;
+  flex-flow: column;
+  height: 100vh;
+}
+
+:local(.PlayerPanel) {
+	display: block;
+  flex: 1;
+	width: 100%;
+	position: relative;
+}
+
+:local(.DealerPanel) {
+	display: block;
+  flex: 1;
+	border-bottom: 1px solid black;
+}
+
+:local(.ChatDimensions) {
+	display: flex;
+  height: 100vh;
+  flex-flow: column;
+}
+
+:local(.ChatInput) {
+	width: 300px;
+	padding-left: 7px;
+	padding-right: 7px;
+	outline: none;
+	border: none;
+	border-bottom: 1px solid #DDD;
+	height: 50px;
+}
+
+:local(.ChatMessages) {
+	width: 300px;
+	flex: 1;
+	overflow-y: auto;
+}
+
+:local(.MessageLog) {
+	width: 300px;
+	display: block;
+	padding-left: 7px;
+	padding-right: 7px;
+}
+
+:local(.AlternateMessageStyling) {
+	background-color: #F8F8F8;
+}
+
+:local(.UsernameTitle) {
+	font-weight: bold;
+}
+
+:local(.PlayerTab) {
+	width: 300px;
+	background-color: #F8F8F8;
+	height: 50px;
+	border-bottom: 1px solid black;
+	overflow: hidden;
+}
+
+:local(.PlayerTabTotalCount) {
+	font-size: 55px;
+	display: inline-block;
+	font-weight: bold;
+	margin-left: 10px;
+	color: #666;
+}
+
+:local(.PlayerTabPlayerName) {
+	display: inline-block;
+	position: absolute;
+  line-height: 50px;
+	margin-left: 10px;
+	max-width: 159px;
+	overflow-x: hidden;
+}
+
+:local(.PlayerTabBet) {
+	display: inline-block;
+	position: absolute;
+  line-height: 50px;
+	right: 10px;
+	color: #880;
+}
+
+:local(.ActionPanel) {
+	position: absolute;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#88d7fc+0,bd07f4+99 */
+	background: #88d7fc; /* Old browsers */
+	background: -moz-linear-gradient(left, #88d7fc 0%, #bd07f4 99%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, #88d7fc 0%,#bd07f4 99%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, #88d7fc 0%,#bd07f4 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#88d7fc', endColorstr='#bd07f4',GradientType=1 ); /* IE6-9 */
+	bottom: 0px;
+	width: 100%;
+	height: 50px;
+	color: black;
+}
+
+:local(.PlayerActionButton) {
+	display: inline-block;
+	text-align: center;
+	width: 25%;
+	height: 50px;
+	vertical-align: middle;
+}

@@ -1,0 +1,6 @@
+:local(.PlayerBox) {
+  /* height: 50vh; */
+  height: 449px;
+  background-color: steelblue;
+  width: 100%;
+}

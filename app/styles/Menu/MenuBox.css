@@ -1,0 +1,8 @@
+:local(.menubox) {
+	background-color: crimson;
+	/* display: inline-block; */
+	width: 300px;
+	height: 900px;
+	display:flex;
+	flex-direction: column;
+}
