@@ -7,6 +7,10 @@ export const NEW_LOG_ENTRY = config.actionConst.NEW_LOG_ENTRY;
 export const SEND_COMMAND = config.actionConst.SEND_COMMAND;
 export const INVALID_COMMAND = config.actionConst.INVALID_COMMAND;
 export const NEW_USER = config.actionConst.NEW_USER;
+export const USER_HIT = 'USER_HIT';
+export const USER_SPLIT = 'USER_SPLIT';
+export const USER_DOUBLE = 'USER_DOUBLE';
+export const USER_HOLD = 'USER_HOLD';
 
 function action(type, payload = {}) {
 	return { type, ...payload };
@@ -103,3 +107,7 @@ export const submitCurrentInput = (username, userCurrentInput) => action(SUBMIT_
 export const newLogEntry = (source, content, coloration) => action(NEW_LOG_ENTRY, {source, content, coloration});
 export const sendCommand = (parsedCommand) => action(SEND_COMMAND, {parsedCommand, meta: {remote: true}});
 export const invalidCommand = (parsedCommand) => action(INVALID_COMMAND, {parsedCommand});
+export const handleUserHit = () => action(USER_HIT, {meta: {remote: true}});
+export const handleUserSplit = () => action(USER_SPLIT, {meta: {remote: true}});
+export const handleUserDouble = () => action(USER_DOUBLE, {meta: {remote: true}});
+export const handleUserHold = () => action(USER_HOLD, {meta: {remote: true}});

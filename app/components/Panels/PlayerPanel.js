@@ -8,9 +8,11 @@ import styles from '../../styles/MainPage.css';
 
 class PlayerPanel extends Component {
 	render() {
+		console.log('this', this);
 		return (
 			<div className={styles.PlayerPanel}>
-				<CardPanel />
+				<CardPanel cards={this.props.user.cards} />
+				<ActionPanel handleAction={this.props.handleAction} />
 			</div>
 		)
 	}

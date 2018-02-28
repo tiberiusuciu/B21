@@ -5,7 +5,8 @@ import Parser from '../modules/parser';
 
 import {
 	setUserCurrentInput, submitCurrentInput, newLogEntry,
-	sendCommand, invalidCommand,
+	sendCommand, invalidCommand, handleUserHit, handleUserSplit,
+	handleUserDouble, handleUserHold
 } from '../actions';
 
 const _parser = (username, userCurrentInput) => {
@@ -46,6 +47,24 @@ const mapDispatchToProps = (dispatch) => {
 				else {
 					dispatch(invalidCommand(parsedCommand));
 				}
+			}
+		},
+		onHandleAction: (type) => {
+			switch (type) {
+				case "hit":
+					dispatch(handleUserHit());
+					break;
+				case "split":
+					dispatch(handleUserSplit());
+					break;
+				case "double":
+					dispatch(handleUserDouble());
+					break;
+				case "hold":
+					dispatch(handleUserHold());
+					break;
+				default:
+
 			}
 		},
 	};

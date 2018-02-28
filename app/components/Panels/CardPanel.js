@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 
 import styles from '../../styles/MainPage.css';
 
+let id = 0;
 class CardPanel extends Component {
 	render() {
 		return (
 			<div className={styles.CardPanel}>
-        <img src="/images/2C.png" className={styles.CardSize}/>
-        <img src="/images/AC.png" className={styles.CardSize}/>
-        <img src="/images/8D.png" className={styles.CardSize}/>
+				{
+					this.props.cards ?
+						this.props.cards.map ((card) => {
+							return (<img key={++id} src={"/images/" + card} className={styles.CardSize}/>);
+						})
+					 : null
+				}
 			</div>
 		)
 	}
