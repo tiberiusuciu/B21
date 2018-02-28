@@ -140,6 +140,20 @@
 	vertical-align: middle;
 }
 
+:local(.PlayerBetButton) {
+	display: inline-block;
+	text-align: center;
+	padding: 16px;
+	width: 25%;
+	height: 50px;
+	vertical-align: middle;
+}
+
+:local(.PlayerBetButton:hover) {
+	color: white;
+	cursor: pointer;
+}
+
 :local(.PlayerActionButton:hover) {
 	color: white;
 	cursor: pointer;
@@ -156,4 +170,35 @@
 	width: 100px;
 	height: 150px;
 	margin: 30px 5px 0px 5px;
+}
+
+:local(.BetPanel) {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+}
+
+:local(.BetAnnouncement) {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+:local(.BetOptions) {
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#88d7fc+0,bd07f4+99 */
+	background: #88d7fc; /* Old browsers */
+	background: -moz-linear-gradient(left, #88d7fc 0%, #bd07f4 99%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, #88d7fc 0%,#bd07f4 99%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, #88d7fc 0%,#bd07f4 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#88d7fc', endColorstr='#bd07f4',GradientType=1 ); /* IE6-9 */
+	height: 50px;
+	color: black;
+}
+
+:local(.Inactive) {
+	background-color: #00000066;
+}
+
+:local(.PlayerTabInactive) {
+	background-color: #333;
+	color: grey;
 }

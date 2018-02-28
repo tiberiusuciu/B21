@@ -6,7 +6,7 @@ class PlayerTab extends Component {
 	render() {
 		return (
 			<div className={styles.PlayerTab}>
-        <div className={styles.PlayerTabTotalCount}>18</div>
+        <div className={styles.PlayerTabTotalCount}>21</div>
         <div className={styles.PlayerTabPlayerName}>Chris</div>
         <div className={styles.PlayerTabBet}>15</div>
 			</div>
@@ -14,4 +14,5 @@ class PlayerTab extends Component {
 	}
 };
 
+//  + " " + styles.PlayerTabInactive
 export default PlayerTab;

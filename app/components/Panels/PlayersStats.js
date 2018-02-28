@@ -9,6 +9,7 @@ class PlayersStats extends Component {
 		return (
 			<div className={styles.PanelDimensions + " " + styles.PlayersStats}>
 				<PlayerTab />
+				<PlayerTab />
 			</div>
 		)
 	}
