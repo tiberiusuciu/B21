@@ -89,6 +89,7 @@
 	height: 50px;
 	border-bottom: 1px solid black;
 	overflow: hidden;
+	position: relative;
 }
 
 :local(.PlayerTabTotalCount) {
@@ -133,7 +134,26 @@
 :local(.PlayerActionButton) {
 	display: inline-block;
 	text-align: center;
+	padding: 16px;
 	width: 25%;
 	height: 50px;
 	vertical-align: middle;
+}
+
+:local(.PlayerActionButton:hover) {
+	color: white;
+	cursor: pointer;
+}
+
+:local(.CardPanel) {
+	width: 100%;
+	text-align: center;
+	max-height: 400px;
+	overflow-y: hidden;
+}
+
+:local(.CardSize) {
+	width: 100px;
+	height: 150px;
+	margin: 30px 5px 0px 5px;
 }
