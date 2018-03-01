@@ -10,6 +10,7 @@ import { merge } from 'lodash';
 import terminalBoxReducer from './terminalBoxReducer.js';
 import userReducer from './userReducer.js';
 import chatReducer from './chatReducer.js';
+import gameReducer from './gameReducer.js';
 
 function entities(state = { usage:0 }, action) {
 	if (action.response && action.response.entities) {
@@ -36,4 +37,5 @@ export default combineReducers({
 	...terminalBoxReducer,
 	...userReducer,
 	...chatReducer,
+	...gameReducer,
 });

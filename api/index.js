@@ -40,7 +40,7 @@ io.on('connection', function (socket) {
 	// Making new user here
 	let user = game.addUser('Anonymous', id++);
   user.dealCards(game.drawCards(2));
-	socket.emit('action', {type: config.actionConst.NEW_USER, user});
+	socket.emit('action', {type: config.actionConst.NEW_USER, user, currentPhase: game.currentPhase});
   io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
   socket.emit('action', {type: config.actionConst.UPDATE_MESSAGE_LOGS, messages: game.messages});
 

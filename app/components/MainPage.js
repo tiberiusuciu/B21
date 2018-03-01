@@ -11,7 +11,7 @@ class MainPage extends Component {
 		return (
 			<div className={styles.WindowDimension}>
 				<ChatPanel message={this.props.message} messages={this.props.messages} handleChange={this.props.handleChange} handleSubmit={this.props.handleSubmit}/>
-				<TablesPanel handleAction={this.props.onHandleAction} user={this.props.user} />
+				<TablesPanel handleAction={this.props.onHandleAction} user={this.props.user} currentPhase={this.props.currentPhase} />
 				<PlayersStats users={this.props.users} />
 			</div>
 		)

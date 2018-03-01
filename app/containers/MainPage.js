@@ -24,6 +24,7 @@ const mapStateToProps = (state, ownProps) => {
 		users: state.users,
 		message: state.message,
 		messages: state.messages,
+		currentPhase: state.currentPhase,
 		// referredId: ownProps.location.query.referredId,
 	};
 };
