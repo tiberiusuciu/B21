@@ -11,7 +11,7 @@ class PlayerPanel extends Component {
 		return (
 			<div className={styles.PlayerPanel}>
 				<CardPanel cards={this.props.user.cards} />
-				<ActionPanel handleAction={this.props.handleAction} />
+				<ActionPanel user={this.props.user} handleAction={this.props.handleAction} />
 			</div>
 		)
 	}

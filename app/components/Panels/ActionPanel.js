@@ -5,7 +5,9 @@ import styles from '../../styles/MainPage.css';
 class ActionPanel extends Component {
 
 	handleClick(type, e) {
-		this.props.handleAction(type);
+		if (this.props.user.currentValue < 21 && type != 'hold') {
+			this.props.handleAction(type);
+		}
 	}
 
 	render() {
