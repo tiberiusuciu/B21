@@ -10,7 +10,8 @@ module.exports = {
 		USER_SPLIT: 'USER_SPLIT',
 		USER_DOUBLE: 'USER_DOUBLE',
 		USER_HOLD: 'USER_HOLD',
-		UPDATE_USERS: 'UPDATE_USERS'
+		UPDATE_USERS: 'UPDATE_USERS',
+		UPDATE_USER: 'UPDATE_USER',
 	},
 	commandNames: {
 		EAT: 'eat',

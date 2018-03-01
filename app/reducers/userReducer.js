@@ -1,6 +1,7 @@
 import {
 	NEW_USER,
 	UPDATE_USERS,
+	UPDATE_USER,
 } from '../actions';
 
 const user = (state = {
@@ -14,6 +15,7 @@ const user = (state = {
 }, action) => {
 	switch (action.type) {
 		case NEW_USER:
+		case UPDATE_USER:
 			return action.user;
 		default:
 			return state;

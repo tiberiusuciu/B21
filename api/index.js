@@ -46,7 +46,9 @@ io.on('connection', function (socket) {
 	socket.on("action", function (action) {
 		switch (action.type) {
 			case config.actionConst.USER_HIT:
-        console.log('YAY!!!');
+        user.dealCards(game.drawCards(1));
+        socket.emit('action', {type: config.actionConst.UPDATE_USER, user});
+        io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
 				// let response = game.commandReceived(action.parsedCommand);
 				// io.emit('action', response);
 		}
