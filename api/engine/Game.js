@@ -4,8 +4,6 @@ var config = require('../../config.js');
 var User = require('./User.js');
 var Deck = require('./Deck.js');
 
-// CurrentPhases: Betting, Dealing, Interactions, DealerTurn, Cleanup
-
 function Game() {
 	console.log('instanciating Game engine...');
 	this.deck = new Deck(8);
@@ -17,10 +15,6 @@ function Game() {
 Game.prototype.addUser = function(username, id) {
 	var user = new User(username, id);
 	this.users.push(user);
-	if (this.currentPhase == '' && this.users.length > 0) {
-		this.currentPhase = "BETTING";
-		this.startBettingTimer();
-	}
 	return user;
 };
 
@@ -48,21 +42,6 @@ Game.prototype.addMessageEntry = function(username, message) {
 		message: message,
 	};
 	this.messages.push(messageEntry);
-};
-
-Game.prototype.startBettingTimer = function() {
-	setTimeout(() => {
-		var canBeginTurn = false;
-		this.users.map((user) => {
-			if (user.currentTurn.currentBet > 0) {
-				canBeginTurn = true;
-			}
-		});
-		if (canBeginTurn) {
-			console.log('ALRIGHT WE CAN DEAL!!');
-			this.currentPhase = "DEALING";
-		}
-	}, 30000);
 };
 
 module.exports = Game;

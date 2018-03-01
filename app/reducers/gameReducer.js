@@ -1,10 +1,10 @@
 import {
-  NEW_USER,
+  GAME_PHASE_CHANGE,
 } from '../actions';
 
 const currentPhase = (state = '', action) => {
 	switch (action.type) {
-		case NEW_USER:
+		case GAME_PHASE_CHANGE:
 			return action.currentPhase;
 		default:
 			return state;
