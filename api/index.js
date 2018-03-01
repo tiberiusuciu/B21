@@ -42,6 +42,7 @@ io.on('connection', function (socket) {
   user.dealCards(game.drawCards(2));
 	socket.emit('action', {type: config.actionConst.NEW_USER, user});
   io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
+  socket.emit('action', {type: config.actionConst.UPDATE_MESSAGE_LOGS, messages: game.messages});
 
 	socket.on("action", function (action) {
 		switch (action.type) {
@@ -51,6 +52,11 @@ io.on('connection', function (socket) {
         io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
 				// let response = game.commandReceived(action.parsedCommand);
 				// io.emit('action', response);
+        break;
+      case config.actionConst.USER_MESSAGE_SUBMIT:
+        game.addMessageEntry(user.username, action.message);
+        io.emit('action', {type: config.actionConst.UPDATE_MESSAGE_LOGS, messages: game.messages});
+        break;
 		}
 	})
 

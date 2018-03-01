@@ -4,27 +4,12 @@ var config = require('../../config.js');
 var User = require('./User.js');
 var Deck = require('./Deck.js');
 
-// Pass down a specsheet which is essentially a save file of the game
-
 function Game() {
 	console.log('instanciating Game engine...');
 	this.deck = new Deck(8);
 	this.users = [];
+	this.messages = [];
 }
-
-// Game.prototype.commandReceived = function(command) {
-// 	// Find the user
-// 	// call his eat method
-// 	// dispatch new method afterwards
-// 	switch (command.command) {
-// 		case config.commandNames.SAY:
-// 			return { type: config.actionConst.NEW_LOG_ENTRY, meta: {remote: false}, source: command.source, content: _.join(command.params, ' ')};
-// 		case config.commandNames.EAT:
-// 			return { type: config.actionConst.NEW_LOG_ENTRY, meta: {remote: false}, source: command.source, content: command.source + " ate " + command.params[0] }
-// 		default:
-// 			return { type: config.actionConst.NEW_LOG_ENTRY, meta: {remote: false}, source: "Engine", content: "Something went wrong!"};
-// 	}
-// };
 
 Game.prototype.addUser = function(username, id) {
 	var user = new User(username, id);
@@ -48,6 +33,14 @@ Game.prototype.drawCards = function(amount) {
 		this.deck.cards.splice(i, 1);
 	}
 	return tmp;
+};
+
+Game.prototype.addMessageEntry = function(username, message) {
+	var messageEntry = {
+		username: username,
+		message: message,
+	};
+	this.messages.push(messageEntry);
 };
 
 module.exports = Game;

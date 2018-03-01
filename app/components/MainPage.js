@@ -10,7 +10,7 @@ class MainPage extends Component {
 	render() {
 		return (
 			<div className={styles.WindowDimension}>
-				<ChatPanel />
+				<ChatPanel message={this.props.message} messages={this.props.messages} handleChange={this.props.handleChange} handleSubmit={this.props.handleSubmit}/>
 				<TablesPanel handleAction={this.props.onHandleAction} user={this.props.user} />
 				<PlayersStats users={this.props.users} />
 			</div>

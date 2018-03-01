@@ -5,8 +5,6 @@ import styles from '../../styles/MainPage.css';
 class ActionPanel extends Component {
 
 	handleClick(type, e) {
-		console.log('e', e);
-		console.log('type', type);
 		this.props.handleAction(type);
 	}
 

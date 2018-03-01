@@ -11,9 +11,8 @@ class PlayersStats extends Component {
 				{
 					this.props.users ?
 						this.props.users.map ((user) => {
-							console.log('LOOPING');
 							return (
-								<PlayerTab user={user}/>
+								<PlayerTab user={user} key={user.id}/>
 							);
 						})
 					 : null

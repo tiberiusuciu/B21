@@ -6,7 +6,8 @@ import Parser from '../modules/parser';
 import {
 	setUserCurrentInput, submitCurrentInput, newLogEntry,
 	sendCommand, invalidCommand, handleUserHit, handleUserSplit,
-	handleUserDouble, handleUserHold
+	handleUserDouble, handleUserHold, handleUserMessageChange,
+	handleUserMessageSubmit,
 } from '../actions';
 
 const _parser = (username, userCurrentInput) => {
@@ -18,9 +19,11 @@ const mapStateToProps = (state, ownProps) => {
 	return {
 		userCurrentInput: state.userCurrentInput,
 		userInputHistory: state.userInputHistory,
+		logs: state.logs,
 		user: state.user,
 		users: state.users,
-		logs: state.logs,
+		message: state.message,
+		messages: state.messages,
 		// referredId: ownProps.location.query.referredId,
 	};
 };
@@ -67,6 +70,12 @@ const mapDispatchToProps = (dispatch) => {
 				default:
 
 			}
+		},
+		handleChange: (message) => {
+			dispatch(handleUserMessageChange(message));
+		},
+		handleSubmit: (message) => {
+			dispatch(handleUserMessageSubmit(message));
 		},
 	};
 };

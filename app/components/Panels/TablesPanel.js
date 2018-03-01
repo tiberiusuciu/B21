@@ -7,7 +7,6 @@ import styles from '../../styles/MainPage.css';
 
 class TablesPanel extends Component {
 	render() {
-		console.log('thistables', this);
 		return (
 			<div className={styles.PanelDimensions + " " + styles.TablesPanel}>
         <div className={styles.SplitTableDimensions}>
