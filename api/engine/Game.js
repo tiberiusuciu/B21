@@ -44,11 +44,9 @@ Game.prototype.removeUser = function(id) {
 Game.prototype.drawCards = function(amount) {
 	var tmp = [];
 	for (var i = 0; i < amount; i++) {
-		console.log('drawing!!');
 		tmp[i] = this.deck.cards[i];
 		this.deck.cards.splice(i, 1);
 	}
-	console.log('tmp', tmp);
 	return tmp;
 };
 
