@@ -57,6 +57,11 @@ io.on('connection', function (socket) {
         game.addMessageEntry(user.username, action.message);
         io.emit('action', {type: config.actionConst.UPDATE_MESSAGE_LOGS, messages: game.messages});
         break;
+      case config.actionConst.USER_PLACE_BET:
+        user.bet(action.money);
+        socket.emit('action', {type: config.actionConst.UPDATE_USER, user});
+        io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
+        break;
 		}
 	})
 

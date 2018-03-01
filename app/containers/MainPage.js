@@ -7,7 +7,7 @@ import {
 	setUserCurrentInput, submitCurrentInput, newLogEntry,
 	sendCommand, invalidCommand, handleUserHit, handleUserSplit,
 	handleUserDouble, handleUserHold, handleUserMessageChange,
-	handleUserMessageSubmit,
+	handleUserMessageSubmit, handleUserBet,
 } from '../actions';
 
 const _parser = (username, userCurrentInput) => {
@@ -77,6 +77,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		handleSubmit: (message) => {
 			dispatch(handleUserMessageSubmit(message));
+		},
+		handleBetClick: (value) => {
+			dispatch(handleUserBet(value));
 		},
 	};
 };

@@ -45,4 +45,9 @@ User.prototype.evaluateCards = function(newCards) {
 	return tmp;
 };
 
+User.prototype.bet = function(money) {
+	this.money -= money;
+	this.currentTurn.currentBet += money;
+};
+
 module.exports = User;

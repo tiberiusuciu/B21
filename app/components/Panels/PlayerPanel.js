@@ -11,7 +11,7 @@ class PlayerPanel extends Component {
 	displayExtraPanels(currentPhase) {
 		switch (currentPhase) {
 			case "BETTING":
-				return (<BetPanel />);
+				return (<BetPanel user={this.props.user} handleBetClick={this.props.handleBetClick} />);
 			case "DEALING":
 				return (<ActionPanel user={this.props.user} handleAction={this.props.handleAction} />);
 			default:

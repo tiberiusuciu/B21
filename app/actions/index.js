@@ -12,6 +12,7 @@ export const UPDATE_USER = config.actionConst.UPDATE_USER;
 export const USER_MESSAGE_CHANGE = config.actionConst.USER_MESSAGE_CHANGE;
 export const USER_MESSAGE_SUBMIT = config.actionConst.USER_MESSAGE_SUBMIT;
 export const UPDATE_MESSAGE_LOGS = config.actionConst.UPDATE_MESSAGE_LOGS;
+export const USER_PLACE_BET = config.actionConst.USER_PLACE_BET;
 export const USER_HIT = 'USER_HIT';
 export const USER_SPLIT = 'USER_SPLIT';
 export const USER_DOUBLE = 'USER_DOUBLE';
@@ -118,3 +119,4 @@ export const handleUserDouble = () => action(USER_DOUBLE, {meta: {remote: true}}
 export const handleUserHold = () => action(USER_HOLD, {meta: {remote: true}});
 export const handleUserMessageChange = (message) => action(USER_MESSAGE_CHANGE, { message });
 export const handleUserMessageSubmit = (message) => action(USER_MESSAGE_SUBMIT, {message, meta: {remote: true}});
+export const handleUserBet = (money) => action(USER_PLACE_BET, {money, meta: {remote: true}});
