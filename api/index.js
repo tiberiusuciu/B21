@@ -62,11 +62,11 @@ io.on('connection', function (socket) {
         io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
   		}
       else {
-        timer = setTimeout(awaitingBetting, 10000);
+        timer = setTimeout(awaitingBetting, 15000);
       }
   	};
 
-    timer = setTimeout(awaitingBetting, 10000);
+    timer = setTimeout(awaitingBetting, 15000);
   }
 
 	socket.on("action", function (action) {
