@@ -4,11 +4,14 @@ var config = require('../../config.js');
 var User = require('./User.js');
 var Deck = require('./Deck.js');
 
+// CurrentPhases: Betting, Dealing, Interactions, DealerTurn, Cleanup
+
 function Game() {
 	console.log('instanciating Game engine...');
 	this.deck = new Deck(8);
 	this.users = [];
 	this.messages = [];
+	this.currentPhase = '';
 }
 
 Game.prototype.addUser = function(username, id) {

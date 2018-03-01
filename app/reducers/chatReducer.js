@@ -15,7 +15,6 @@ const message = (state = '', action) => {
 const messages = (state = [], action) => {
 	switch (action.type) {
 		case UPDATE_MESSAGE_LOGS:
-			console.log('Got news from API about message submit!');
 			return action.messages;
 		default:
 			return state;
