@@ -69,6 +69,8 @@ io.on('connection', function (socket) {
       setTimeout(dealHand, 500);
     }
     else if(game.firstCardDealt == false) {
+      game.currentUserId = game.dealer.id;
+      io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
       game.dealer.dealCards(game.drawCards(1));
       io.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
       setTimeout(() => {
