@@ -68,12 +68,12 @@ io.on('connection', function (socket) {
       setTimeout(dealHand, 500);
     }
     else if(game.firstCardDealt == false) {
+      game.dealer.dealCards(game.drawCards(1));
+      io.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
       setTimeout(() => {
-        game.dealer.dealCards(game.drawCards(1));
-        io.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
         game.firstCardDealt = true;
         game.currentPlayer = 0;
-        setTimeout(dealHand, 500);
+        dealHand();
       }, 500)
     }
     else if(game.firstCardDealt == true) {
