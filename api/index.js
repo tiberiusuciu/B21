@@ -45,52 +45,73 @@ io.on('connection', function (socket) {
   io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
   socket.emit('action', {type: config.actionConst.UPDATE_MESSAGE_LOGS, messages: game.messages});
 
+  // Game Turn Mechanics
+  var dealHand = () => {
+    if (game.currentPlayer < game.users.length) {
+      if (game.users[game.currentPlayer].currentTurn.currentBet > 0) {
+        game.currentUserId = game.users[game.currentPlayer].id;
+        io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
+        game.users[game.currentPlayer].dealCards(game.drawCards(1));
+        io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
+      }
+
+      game.currentPlayer++;
+      var haveNotFoundNext = true;
+      while (haveNotFoundNext && game.currentPlayer < game.users.length) {
+        if (game.users[game.currentPlayer].currentTurn.currentBet <= 0) {
+          game.currentPlayer++;
+        }
+        else {
+          haveNotFoundNext = false;
+        }
+      }
+      setTimeout(dealHand, 500);
+    }
+    else if(game.firstCardDealt == false) {
+      game.firstCardDealt = true;
+      game.currentPlayer = 0;
+      dealHand();
+    }
+  };
+
+  var awaitingBetting = () => {
+    var canBeginTurn = false;
+    game.users.map((user) => {
+      if (user.currentTurn.currentBet > 0) {
+        canBeginTurn = true;
+      }
+    });
+    if (canBeginTurn && game.currentPhase != "DEALING") {
+      game.currentPhase = "DEALING";
+      game.currentPlayer = 0;
+      game.currentUserId = game.users[game.currentPlayer].id;
+      io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
+      dealHand();
+    }
+    else {
+      timer = setTimeout(awaitingBetting, 15000);
+    }
+  };
+
   // CurrentPhases: Betting, Dealing, Interactions, DealerTurn, Cleanup
   if (game.currentPhase == '' && game.users.length > 0) {
     game.currentPhase = "BETTING";
     io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
     var timer;
-
-    var dealHand = () => {
-      if (game.currentPlayer < game.users.length) {
-        game.currentUserId = game.users[game.currentPlayer].id;
-        io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
-        game.users[game.currentPlayer].dealCards(game.drawCards(1));
-        io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
-    		// game.users[currentIndex].c.push(d[0]);
-    		console.log('user ', game.users[game.currentPlayer].username, ": ", game.users[game.currentPlayer].currentTurn.cards);
-    		// d.shift();
-    		game.currentPlayer++;
-    		setTimeout(dealHand, 3000);
-    	}
-    	else if(game.firstCardDealt == false) {
-    		game.firstCardDealt = true;
-    		game.currentPlayer = 0;
-    		dealHand();
-    	}
-    };
-
-    var awaitingBetting = () => {
-  		var canBeginTurn = false;
-  		game.users.map((user) => {
-  			if (user.currentTurn.currentBet > 0) {
-  				canBeginTurn = true;
-  			}
-  		});
-  		if (canBeginTurn) {
-  			game.currentPhase = "DEALING";
-        game.currentPlayer = 0;
-        game.currentUserId = game.users[game.currentPlayer].id;
-        io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
-        dealHand();
-  		}
-      else {
-        timer = setTimeout(awaitingBetting, 15000);
-      }
-  	};
-
     timer = setTimeout(awaitingBetting, 15000);
   }
+
+  var checkForAllUserBets = () => {
+    var canBeginTurn = true;
+    game.users.map((user) => {
+      if (user.currentTurn.currentBet <= 0) {
+        canBeginTurn = false;
+      }
+    });
+    if (canBeginTurn) {
+      awaitingBetting();
+    }
+  };
 
 	socket.on("action", function (action) {
 		switch (action.type) {
@@ -107,6 +128,7 @@ io.on('connection', function (socket) {
         user.bet(action.money);
         socket.emit('action', {type: config.actionConst.UPDATE_USER, user});
         io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
+        checkForAllUserBets();
         break;
 		}
 	})

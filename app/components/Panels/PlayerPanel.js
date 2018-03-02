@@ -22,9 +22,8 @@ class PlayerPanel extends Component {
 	}
 //cards={this.props.users[this.props.currentPlayer].currentTurn.cards}
 	render() {
-		console.log('tables panel state', this);
 		return (
-			<div className={styles.PlayerPanel + (this.props.userId != this.props.currentUserId ? " " + styles.Inactive : "")}>
+			<div className={styles.PlayerPanel + (this.props.userId != this.props.currentUserId && this.props.currentPhase != "BETTING" && this.props.currentPhase != "DEALING" ? " " + styles.Inactive : "")}>
 				<CardPanel
 					userId={this.props.userId}
 					users={this.props.users}
