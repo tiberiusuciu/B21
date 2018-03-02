@@ -16,7 +16,6 @@ const _parser = (username, userCurrentInput) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-	console.log('big state', state);
 	return {
 		userCurrentInput: state.userCurrentInput,
 		userInputHistory: state.userInputHistory,

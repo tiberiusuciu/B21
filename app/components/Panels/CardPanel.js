@@ -21,7 +21,6 @@ class CardPanel extends Component {
 
 	generateCardImages() {
 		if (!this.props.isDealer) {
-			console.log("Is dealer?", this.props.isDealer);
 			if (this.props.currentPlayer != -1 && this.props.currentPlayer != undefined) {
 				return this.findUser(this.props.userId).currentTurn.cards.map ((card) => {
 					return (<img key={++id} src={"/images/" + card} className={styles.CardSize}/>);
@@ -32,7 +31,6 @@ class CardPanel extends Component {
 			}
 		}
 		else {
-			console.log("dealer is dealing?", this.props.isDealer);
 			var isSecondCard = false;
 			return this.props.dealer.currentTurn.cards.map ((card) => {
 				if (this.props.currentPhase == "DEALERTURN") {

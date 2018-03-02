@@ -91,7 +91,6 @@ io.on('connection', function (socket) {
           haveNotFoundNext = false;
         }
       }
-      console.log('we will be starting with player', game.currentPlayer);
     }
   };
 

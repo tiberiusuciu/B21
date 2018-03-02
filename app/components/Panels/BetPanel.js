@@ -15,7 +15,6 @@ class BetPanel extends Component {
 				user = this.props.users[i];
 			}
 		}
-		console.log('user', user);
 		return user;
 	}
 
