@@ -10,6 +10,8 @@ function Game() {
 	this.users = [];
 	this.messages = [];
 	this.currentPhase = '';
+	this.firstCardDealt = false;
+	this.currentPlayer = 0;
 }
 
 Game.prototype.addUser = function(username, id) {
