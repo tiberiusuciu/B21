@@ -42,6 +42,7 @@ io.on('connection', function (socket) {
   socket.emit('action', {type: config.actionConst.ASSIGN_ID, id: user.id});
 	// socket.emit('action', {type: config.actionConst.NEW_USER, user});
 	socket.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
+  socket.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
   io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
   socket.emit('action', {type: config.actionConst.UPDATE_MESSAGE_LOGS, messages: game.messages});
 
