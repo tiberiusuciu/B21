@@ -10,7 +10,9 @@ class TablesPanel extends Component {
 		return (
 			<div className={styles.PanelDimensions + " " + styles.TablesPanel}>
         <div className={styles.SplitTableDimensions}>
-          <DealerPanel />
+          <DealerPanel
+						dealer={this.props.dealer}
+						currentPhase={this.props.currentPhase} />
           <PlayerPanel
 						handleAction={this.props.handleAction}
 						handleBetClick={this.props.handleBetClick}

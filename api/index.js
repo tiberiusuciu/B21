@@ -68,9 +68,29 @@ io.on('connection', function (socket) {
       setTimeout(dealHand, 500);
     }
     else if(game.firstCardDealt == false) {
-      game.firstCardDealt = true;
+      setTimeout(() => {
+        game.dealer.dealCards(game.drawCards(1));
+        io.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
+        game.firstCardDealt = true;
+        game.currentPlayer = 0;
+        setTimeout(dealHand, 500);
+      }, 500)
+    }
+    else if(game.firstCardDealt == true) {
+      game.dealer.dealCards(game.drawCards(1));
+      io.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
+      game.firstCardDealt = false;
       game.currentPlayer = 0;
-      dealHand();
+      var haveNotFoundNext = true;
+      while (haveNotFoundNext && game.currentPlayer < game.users.length) {
+        if (game.users[game.currentPlayer].currentTurn.currentBet <= 0) {
+          game.currentPlayer++;
+        }
+        else {
+          haveNotFoundNext = false;
+        }
+      }
+      console.log('we will be starting with player', game.currentPlayer);
     }
   };
 

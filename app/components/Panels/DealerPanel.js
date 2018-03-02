@@ -8,7 +8,10 @@ class DealerPanel extends Component {
 	render() {
 		return (
 			<div className={styles.DealerPanel}>
-        <CardPanel />
+        <CardPanel
+					dealer={this.props.dealer}
+					currentPhase={this.props.currentPhase}
+					isDealer />
 			</div>
 		)
 	}

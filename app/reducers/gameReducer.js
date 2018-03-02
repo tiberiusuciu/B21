@@ -1,6 +1,7 @@
 import {
   GAME_PHASE_CHANGE,
   UPDATE_CURRENT_USER_ID,
+  UPDATE_DEALER,
 } from '../actions';
 
 const currentPhase = (state = '', action) => {
@@ -30,8 +31,31 @@ const currentPlayer = (state = -1, action) => {
   }
 };
 
+const dealer = (state = {
+	id: '',
+	username: '',
+	money: 0,
+	currentTurn: {
+		cards: [],
+		currentValue: 0,
+		currentBet: 0,
+		hasPlayed: false,
+		hasBust: false,
+		hasDoubled: false,
+		hasBlackJack: false,
+	},
+}, action) => {
+  switch (action.type) {
+    case UPDATE_DEALER:
+      return action.dealer;
+    default:
+      return state;
+  }
+}
+
 export default ({
 	currentPhase,
   currentUserId,
   currentPlayer,
+  dealer,
 });
