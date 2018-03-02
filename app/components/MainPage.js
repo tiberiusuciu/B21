@@ -11,7 +11,14 @@ class MainPage extends Component {
 		return (
 			<div className={styles.WindowDimension}>
 				<ChatPanel message={this.props.message} messages={this.props.messages} handleChange={this.props.handleChange} handleSubmit={this.props.handleSubmit}/>
-				<TablesPanel handleAction={this.props.onHandleAction} handleBetClick={this.props.handleBetClick} user={this.props.user} currentPhase={this.props.currentPhase} />
+				<TablesPanel
+					handleAction={this.props.onHandleAction}
+					handleBetClick={this.props.handleBetClick}
+					users={this.props.users}
+					userId={this.props.userId}
+					currentUserId={this.props.currentUserId}
+					currentPlayer={this.props.currentPlayer}
+					currentPhase={this.props.currentPhase} />
 				<PlayersStats users={this.props.users} />
 			</div>
 		)

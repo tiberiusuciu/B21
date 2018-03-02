@@ -4,8 +4,28 @@ import styles from '../../styles/MainPage.css';
 
 class ActionPanel extends Component {
 
+	findUser(id) {
+		var found = false;
+		var user = this.props.users.map((user) => {
+			if(user.id == id) {
+				found = true;
+				return user;
+			}
+		})[0];
+		if (found) {
+			return user;
+		}
+		else {
+			return {
+				currentTurn: {
+					currentBet: 0,
+				},
+			};
+		}
+	}
+
 	handleClick(type, e) {
-		if (!this.props.user.currentTurn.hasBust) {
+		if (!this.findUser(this.props.userId).currentTurn.hasBust) {
 			this.props.handleAction(type);
 		}
 	}

@@ -2,6 +2,7 @@ import {
 	NEW_USER,
 	UPDATE_USERS,
 	UPDATE_USER,
+	ASSIGN_ID,
 } from '../actions';
 
 const user = (state = {
@@ -36,7 +37,17 @@ const users = (state = [], action) => {
 	}
 };
 
+const userId = (state = 0, action) => {
+	switch (action.type) {
+		case ASSIGN_ID:
+			return action.id;
+		default:
+			return state;
+	}
+};
+
 export default ({
 	user,
 	users,
+	userId,
 });

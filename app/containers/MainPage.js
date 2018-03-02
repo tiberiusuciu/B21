@@ -16,15 +16,18 @@ const _parser = (username, userCurrentInput) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
+	console.log('big state', state);
 	return {
 		userCurrentInput: state.userCurrentInput,
 		userInputHistory: state.userInputHistory,
 		logs: state.logs,
-		user: state.user,
 		users: state.users,
 		message: state.message,
 		messages: state.messages,
 		currentPhase: state.currentPhase,
+		userId: state.userId,
+		currentUserId: state.currentUserId,
+		currentPlayer: state.currentPlayer,
 		// referredId: ownProps.location.query.referredId,
 	};
 };

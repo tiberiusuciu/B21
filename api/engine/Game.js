@@ -11,7 +11,8 @@ function Game() {
 	this.messages = [];
 	this.currentPhase = '';
 	this.firstCardDealt = false;
-	this.currentPlayer = 0;
+	this.currentPlayer = -1;
+	this.currentUserId = -1;
 }
 
 Game.prototype.addUser = function(username, id) {

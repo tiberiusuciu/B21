@@ -11,7 +11,15 @@ class TablesPanel extends Component {
 			<div className={styles.PanelDimensions + " " + styles.TablesPanel}>
         <div className={styles.SplitTableDimensions}>
           <DealerPanel />
-          <PlayerPanel handleAction={this.props.handleAction} handleBetClick={this.props.handleBetClick} user={this.props.user} currentPhase={this.props.currentPhase}/>
+          <PlayerPanel
+						handleAction={this.props.handleAction}
+						handleBetClick={this.props.handleBetClick}
+						user={this.props.user}
+						users={this.props.users}
+						userId={this.props.userId}
+						currentUserId={this.props.currentUserId}
+						currentPlayer={this.props.currentPlayer}
+						currentPhase={this.props.currentPhase}/>
         </div>
 			</div>
 		)

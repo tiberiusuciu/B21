@@ -39,8 +39,8 @@ io.on('connection', function (socket) {
 
 	// Making new user here
 	let user = game.addUser('Anonymous', id++);
-  // user.dealCards(game.drawCards(2));
-	socket.emit('action', {type: config.actionConst.NEW_USER, user});
+  socket.emit('action', {type: config.actionConst.ASSIGN_ID, id: user.id});
+	// socket.emit('action', {type: config.actionConst.NEW_USER, user});
 	socket.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
   io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
   socket.emit('action', {type: config.actionConst.UPDATE_MESSAGE_LOGS, messages: game.messages});
@@ -53,13 +53,15 @@ io.on('connection', function (socket) {
 
     var dealHand = () => {
       if (game.currentPlayer < game.users.length) {
+        game.currentUserId = game.users[game.currentPlayer].id;
+        io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
         game.users[game.currentPlayer].dealCards(game.drawCards(1));
         io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
     		// game.users[currentIndex].c.push(d[0]);
     		console.log('user ', game.users[game.currentPlayer].username, ": ", game.users[game.currentPlayer].currentTurn.cards);
     		// d.shift();
     		game.currentPlayer++;
-    		setTimeout(dealHand, 500);
+    		setTimeout(dealHand, 3000);
     	}
     	else if(game.firstCardDealt == false) {
     		game.firstCardDealt = true;
@@ -77,6 +79,8 @@ io.on('connection', function (socket) {
   		});
   		if (canBeginTurn) {
   			game.currentPhase = "DEALING";
+        game.currentPlayer = 0;
+        game.currentUserId = game.users[game.currentPlayer].id;
         io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
         dealHand();
   		}
