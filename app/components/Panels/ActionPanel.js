@@ -32,9 +32,16 @@ class ActionPanel extends Component {
 		if (!this.findUser(this.props.userId).currentTurn.hasBust && type != "hold") {
 			this.props.handleAction(type);
 		}
+		else if (type == "hold") {
+			this.props.handleAction(type);
+		}
 	}
 
 	render() {
+		if (this.findUser(this.props.userId).currentTurn.hasBust) {
+			this.props.handleAction("hold");
+		}
+
 		return (
 			<div className={styles.ActionPanel}>
         <div className={styles.PlayerActionButton} onClick={(e) => {this.handleClick("hit", e);}}>Hit</div>

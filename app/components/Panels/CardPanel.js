@@ -21,7 +21,7 @@ class CardPanel extends Component {
 
 	generateCardImages() {
 		if (!this.props.isDealer) {
-			if (this.props.currentPlayer != -1 && this.props.currentPlayer != undefined) {
+			if (this.props.currentPlayer != undefined) {
 				return this.findUser(this.props.userId).currentTurn.cards.map ((card) => {
 					return (<img key={++id} src={"/images/" + card} className={styles.CardSize}/>);
 				})

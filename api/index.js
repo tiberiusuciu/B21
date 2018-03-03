@@ -167,6 +167,12 @@ io.on('connection', function (socket) {
           if (haveNotFoundNext) {
             // End playing phase
             console.log('Ending playing phase...');
+            game.currentPhase = "DEALER_TURN";
+            io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
+
+            game.currentPlayer = -1;
+            game.currentUserId = game.dealer.id;
+            io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
           }
           else {
             game.currentUserId = game.users[game.currentPlayer].id;
@@ -176,6 +182,12 @@ io.on('connection', function (socket) {
         else {
           // End playing phase
           console.log('Ending playing phase...');
+          game.currentPhase = "DEALER_TURN";
+          io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
+
+          game.currentPlayer = -1;
+          game.currentUserId = game.dealer.id;
+          io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
         }
 
         break;
