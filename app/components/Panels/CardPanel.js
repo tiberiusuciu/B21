@@ -33,7 +33,7 @@ class CardPanel extends Component {
 		else {
 			var isSecondCard = false;
 			return this.props.dealer.currentTurn.cards.map ((card) => {
-				if (this.props.currentPhase == "DEALERTURN") {
+				if (this.props.currentPhase == "DEALER_TURN") {
 					return (<img key={++id} src={"/images/" + card} className={styles.CardSize}/>);
 				}
 				else {

@@ -8,7 +8,7 @@ class PlayersStats extends Component {
 	render() {
 		return (
 			<div className={styles.PanelDimensions + " " + styles.PlayersStats}>
-				<PlayerTab dealer={this.props.dealer} isDealer currentUserId={this.props.currentUserId} userId={this.props.userId} />
+				<PlayerTab dealer={this.props.dealer} isDealer currentUserId={this.props.currentUserId} userId={this.props.userId} currentPhase={this.props.currentPhase} />
 				{
 					this.props.users ?
 						this.props.users.map ((user) => {

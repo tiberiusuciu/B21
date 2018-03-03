@@ -33,7 +33,7 @@ class PlayerTab extends Component {
 				{
 					this.props.isDealer ? (
 						<div className={styles.PlayerTab + (this.props.currentUserId == this.props.dealer.id ? "" : (" " + styles.PlayerTabInactive))}>
-							<div className={styles.PlayerTabTotalCount}>{this.partialValue()}</div>
+							<div className={styles.PlayerTabTotalCount}>{this.props.currentPhase == "DEALER_TURN" ? this.props.dealer.currentTurn.currentValue : this.partialValue()}</div>
 							<div className={styles.PlayerTabPlayerName}>{this.props.dealer.username}</div>
 						</div>
 					) : (

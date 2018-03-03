@@ -141,6 +141,13 @@ io.on('connection', function (socket) {
     }
   };
 
+  var dealDealer = () => {
+    // game.dealer.dealCards(game.drawCards(1));
+    // io.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
+    //
+    // setTimeout(dealDealer, 500);
+  };
+
 	socket.on("action", function (action) {
 		switch (action.type) {
 			case config.actionConst.USER_HIT:
@@ -173,6 +180,8 @@ io.on('connection', function (socket) {
             game.currentPlayer = -1;
             game.currentUserId = game.dealer.id;
             io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
+
+            dealDealer();
           }
           else {
             game.currentUserId = game.users[game.currentPlayer].id;
@@ -188,6 +197,8 @@ io.on('connection', function (socket) {
           game.currentPlayer = -1;
           game.currentUserId = game.dealer.id;
           io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
+
+          dealDealer();
         }
 
         break;

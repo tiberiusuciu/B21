@@ -20,7 +20,7 @@ class MainPage extends Component {
 					currentPlayer={this.props.currentPlayer}
 					dealer={this.props.dealer}
 					currentPhase={this.props.currentPhase} />
-				<PlayersStats users={this.props.users} userId={this.props.userId} currentUserId={this.props.currentUserId} dealer={this.props.dealer} />
+				<PlayersStats users={this.props.users} userId={this.props.userId} currentUserId={this.props.currentUserId} dealer={this.props.dealer} currentPhase={this.props.currentPhase} />
 			</div>
 		)
 	}
