@@ -149,9 +149,62 @@ io.on('connection', function (socket) {
     }
     else if (game.dealer.currentTurn.currentValue > 21) {
       game.dealer.currentTurn.hasBust = true;
+      game.users.map((user) => {
+        user.money += user.currentTurn.currentBet;
+        user.currentTurn = {
+      		cards: [],
+      		currentValue: 0,
+      		currentBet: 0,
+      		hasPlayed: false,
+      		hasBust: false,
+      		hasDoubled: false,
+      		hasBlackJack: false,
+      	};
+      });
+      game.dealer.currentTurn = {
+        cards: [],
+        currentValue: 0,
+        currentBet: 0,
+        hasPlayed: false,
+        hasBust: false,
+        hasDoubled: false,
+        hasBlackJack: false,
+      };
+      io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
+      io.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
+      game.currentPhase = "BETTING";
+      game.firstCardDealt = false;
+      io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
+      setTimeout(awaitingBetting, 15000);
     }
     else {
-
+      game.users.map((user) => {
+        user.money += user.currentTurn.currentBet;
+        user.currentTurn = {
+          cards: [],
+          currentValue: 0,
+          currentBet: 0,
+          hasPlayed: false,
+          hasBust: false,
+          hasDoubled: false,
+          hasBlackJack: false,
+        };
+      });
+      game.dealer.currentTurn = {
+        cards: [],
+        currentValue: 0,
+        currentBet: 0,
+        hasPlayed: false,
+        hasBust: false,
+        hasDoubled: false,
+        hasBlackJack: false,
+      };
+      io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
+      io.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
+      game.currentPhase = "BETTING";
+      game.firstCardDealt = false;
+      io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
+      setTimeout(awaitingBetting, 15000);
     }
     // game.dealer.dealCards(game.drawCards(1));
     // io.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
