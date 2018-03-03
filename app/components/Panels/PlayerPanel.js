@@ -15,6 +15,15 @@ class PlayerPanel extends Component {
 					userId={this.props.userId}
 					users={this.props.users}
 					handleBetClick={this.props.handleBetClick} />);
+			case "PLAYING":
+				return (
+					<ActionPanel
+						userId={this.props.userId}
+						users={this.props.users}
+						currentUserId={this.props.currentUserId}
+						currentPlayer={this.props.currentPlayer}
+						handleAction={this.props.handleAction} />
+				);
 			case "DEALING":
 			default:
 				return null;

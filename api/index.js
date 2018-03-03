@@ -82,17 +82,19 @@ io.on('connection', function (socket) {
     else if(game.firstCardDealt == true) {
       game.dealer.dealCards(game.drawCards(1));
       io.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
-      game.firstCardDealt = false;
+      // game.firstCardDealt = false;
       game.currentPlayer = 0;
-      var haveNotFoundNext = true;
-      while (haveNotFoundNext && game.currentPlayer < game.users.length) {
-        if (game.users[game.currentPlayer].currentTurn.currentBet <= 0) {
-          game.currentPlayer++;
-        }
-        else {
-          haveNotFoundNext = false;
-        }
-      }
+      game.currentPhase = "PLAYING";
+      io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
+      // var haveNotFoundNext = true;
+      // while (haveNotFoundNext && game.currentPlayer < game.users.length) {
+      //   if (game.users[game.currentPlayer].currentTurn.currentBet <= 0) {
+      //     game.currentPlayer++;
+      //   }
+      //   else {
+      //     haveNotFoundNext = false;
+      //   }
+      // }
     }
   };
 
@@ -103,7 +105,7 @@ io.on('connection', function (socket) {
         canBeginTurn = true;
       }
     });
-    if (canBeginTurn && game.currentPhase != "DEALING") {
+    if (canBeginTurn && game.currentPhase == "BETTING") {
       game.currentPhase = "DEALING";
       game.currentPlayer = 0;
       game.currentUserId = game.users[game.currentPlayer].id;
@@ -151,6 +153,8 @@ io.on('connection', function (socket) {
         socket.emit('action', {type: config.actionConst.UPDATE_USER, user});
         io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
         checkForAllUserBets();
+        break;
+      default:
         break;
 		}
 	})
