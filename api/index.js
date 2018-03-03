@@ -142,10 +142,20 @@ io.on('connection', function (socket) {
   };
 
   var dealDealer = () => {
+    if (game.dealer.currentTurn.currentValue < 17) {
+      game.dealer.dealCards(game.drawCards(1));
+      io.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
+      setTimeout(dealDealer, 800);
+    }
+    else if (game.dealer.currentTurn.currentValue > 21) {
+      game.dealer.currentTurn.hasBust = true;
+    }
+    else {
+
+    }
     // game.dealer.dealCards(game.drawCards(1));
     // io.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
     //
-    // setTimeout(dealDealer, 500);
   };
 
 	socket.on("action", function (action) {
@@ -181,7 +191,7 @@ io.on('connection', function (socket) {
             game.currentUserId = game.dealer.id;
             io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
 
-            dealDealer();
+            setTimeout(dealDealer, 1000);
           }
           else {
             game.currentUserId = game.users[game.currentPlayer].id;
@@ -198,7 +208,7 @@ io.on('connection', function (socket) {
           game.currentUserId = game.dealer.id;
           io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
 
-          dealDealer();
+          setTimeout(dealDealer, 1000);
         }
 
         break;
