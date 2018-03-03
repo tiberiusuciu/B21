@@ -5,13 +5,16 @@ import styles from '../../styles/MainPage.css';
 class ActionPanel extends Component {
 
 	findUser(id) {
+		console.log('users', this.props.users);
 		var found = false;
-		var user = this.props.users.map((user) => {
-			if(user.id == id) {
+		var user;
+		for (var i = 0; i < this.props.users.length; i++) {
+			if (this.props.users[i].id == id) {
 				found = true;
-				return user;
+				user = this.props.users[i];
+				break;
 			}
-		})[0];
+		}
 		if (found) {
 			return user;
 		}
@@ -25,6 +28,7 @@ class ActionPanel extends Component {
 	}
 
 	handleClick(type, e) {
+		console.log('find user', this.findUser(this.props.userId));
 		if (!this.findUser(this.props.userId).currentTurn.hasBust) {
 			this.props.handleAction(type);
 		}

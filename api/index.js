@@ -83,18 +83,22 @@ io.on('connection', function (socket) {
       game.dealer.dealCards(game.drawCards(1));
       io.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
       // game.firstCardDealt = false;
+
       game.currentPlayer = 0;
+      var haveNotFoundNext = true;
+      while (haveNotFoundNext && game.currentPlayer < game.users.length) {
+        if (game.users[game.currentPlayer].currentTurn.currentBet <= 0) {
+          game.currentPlayer++;
+        }
+        else {
+          haveNotFoundNext = false;
+        }
+      }
+      game.currentUserId = game.users[game.currentPlayer].id;
+      io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
+
       game.currentPhase = "PLAYING";
       io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
-      // var haveNotFoundNext = true;
-      // while (haveNotFoundNext && game.currentPlayer < game.users.length) {
-      //   if (game.users[game.currentPlayer].currentTurn.currentBet <= 0) {
-      //     game.currentPlayer++;
-      //   }
-      //   else {
-      //     haveNotFoundNext = false;
-      //   }
-      // }
     }
   };
 
@@ -143,6 +147,37 @@ io.on('connection', function (socket) {
         user.dealCards(game.drawCards(1));
         socket.emit('action', {type: config.actionConst.UPDATE_USER, user});
         io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
+        break;
+			case config.actionConst.USER_HOLD:
+        // user.dealCards(game.drawCards(1));
+        // socket.emit('action', {type: config.actionConst.UPDATE_USER, user});
+        // io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
+        if (game.currentPlayer + 1 <= game.users.length - 1) {
+          // Find next user who has bets
+          game.currentPlayer++;
+          var haveNotFoundNext = true;
+          while (haveNotFoundNext && game.currentPlayer < game.users.length) {
+            if (game.users[game.currentPlayer].currentTurn.currentBet <= 0) {
+              game.currentPlayer++;
+            }
+            else {
+              haveNotFoundNext = false;
+            }
+          }
+          if (haveNotFoundNext) {
+            // End playing phase
+            console.log('Ending playing phase...');
+          }
+          else {
+            game.currentUserId = game.users[game.currentPlayer].id;
+            io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
+          }
+        }
+        else {
+          // End playing phase
+          console.log('Ending playing phase...');
+        }
+
         break;
       case config.actionConst.USER_MESSAGE_SUBMIT:
         game.addMessageEntry(user.username, action.message);
