@@ -29,7 +29,7 @@ class ActionPanel extends Component {
 
 	handleClick(type, e) {
 		console.log('find user', this.findUser(this.props.userId));
-		if (!this.findUser(this.props.userId).currentTurn.hasBust) {
+		if (!this.findUser(this.props.userId).currentTurn.hasBust && type != "hold") {
 			this.props.handleAction(type);
 		}
 	}
