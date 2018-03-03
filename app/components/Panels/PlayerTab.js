@@ -37,7 +37,7 @@ class PlayerTab extends Component {
 							<div className={styles.PlayerTabPlayerName}>{this.props.dealer.username}</div>
 						</div>
 					) : (
-						<div className={styles.PlayerTab + (this.props.currentUserId == this.props.userId ? "" : (" " + styles.PlayerTabInactive))}>
+						<div className={styles.PlayerTab + (this.props.currentUserId == this.props.user.id ? "" : (" " + styles.PlayerTabInactive))}>
 							<div className={styles.PlayerTabTotalCount}>{this.props.user.currentTurn.currentValue}</div>
 							<div className={styles.PlayerTabPlayerName}>{this.props.user.username}</div>
 							<div className={styles.PlayerTabBet}>{this.props.user.currentTurn.currentBet}</div>
