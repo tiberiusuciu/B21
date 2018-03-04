@@ -170,12 +170,14 @@ io.on('connection', function (socket) {
         hasDoubled: false,
         hasBlackJack: false,
       };
-      io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
-      io.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
-      game.currentPhase = "BETTING";
-      game.firstCardDealt = false;
-      io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
-      setTimeout(awaitingBetting, 15000);
+      setTimeout(() => {
+        io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
+        io.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
+        game.currentPhase = "BETTING";
+        game.firstCardDealt = false;
+        io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
+        setTimeout(awaitingBetting, 15000);
+      }, 3000)
     }
     else {
       game.users.map((user) => {
@@ -199,12 +201,14 @@ io.on('connection', function (socket) {
         hasDoubled: false,
         hasBlackJack: false,
       };
-      io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
-      io.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
-      game.currentPhase = "BETTING";
-      game.firstCardDealt = false;
-      io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
-      setTimeout(awaitingBetting, 15000);
+      setTimeout(() => {
+        io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
+        io.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
+        game.currentPhase = "BETTING";
+        game.firstCardDealt = false;
+        io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
+        setTimeout(awaitingBetting, 15000);
+      }, 3000)
     }
     // game.dealer.dealCards(game.drawCards(1));
     // io.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
