@@ -208,7 +208,7 @@ io.on('connection', function (socket) {
         game.firstCardDealt = false;
         io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
         setTimeout(awaitingBetting, 15000);
-      }, 3000)
+      }, 5000)
     }
     // game.dealer.dealCards(game.drawCards(1));
     // io.emit('action', {type: config.actionConst.UPDATE_DEALER, dealer: game.dealer});
