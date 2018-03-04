@@ -150,7 +150,10 @@ io.on('connection', function (socket) {
     else if (game.dealer.currentTurn.currentValue > 21) {
       game.dealer.currentTurn.hasBust = true;
       game.users.map((user) => {
-        user.money += user.currentTurn.currentBet;
+        if(!user.currentTurn.hasBust) {
+          user.money += user.currentTurn.currentBet * 2;
+          console.log('GIVING DA MONEY', user.currentTurn.currentBet * 2);
+        }
         user.currentTurn = {
       		cards: [],
       		currentValue: 0,
@@ -181,7 +184,12 @@ io.on('connection', function (socket) {
     }
     else {
       game.users.map((user) => {
-        user.money += user.currentTurn.currentBet;
+        if(!user.currentTurn.hasBust) {
+          if (user.currentTurn.currentValue > game.dealer.currentTurn.currentValue) {
+            user.money += user.currentTurn.currentBet * 2;
+            console.log('GIVING DA MONEY', user.currentTurn.currentBet * 2);
+          }
+        }
         user.currentTurn = {
           cards: [],
           currentValue: 0,
@@ -275,6 +283,8 @@ io.on('connection', function (socket) {
         break;
       case config.actionConst.USER_PLACE_BET:
         user.bet(action.money);
+        console.log('user', user);
+        console.log('game.users', game.users);
         socket.emit('action', {type: config.actionConst.UPDATE_USER, user});
         io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
         checkForAllUserBets();

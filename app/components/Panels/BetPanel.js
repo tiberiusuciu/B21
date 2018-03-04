@@ -31,7 +31,7 @@ class BetPanel extends Component {
         <div className={styles.BetOptions}>
           <div className={styles.PlayerBetButton} onClick={() => {this.handleBetClick(5)}}>5</div>
           <div className={styles.PlayerBetButton} onClick={() => {this.handleBetClick(10)}}>10</div>
-          <div className={styles.PlayerBetButton} onClick={() => {this.handleBetClick(25)}}>25</div>
+          <div className={styles.PlayerBetButton} onClick={() => {this.handleBetClick(50)}}>50</div>
           <div className={styles.PlayerBetButton} onClick={() => {this.handleBetClick(100)}}>100</div>
         </div>
 			</div>
