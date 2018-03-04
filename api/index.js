@@ -187,7 +187,9 @@ io.on('connection', function (socket) {
         if(!user.currentTurn.hasBust) {
           if (user.currentTurn.currentValue > game.dealer.currentTurn.currentValue) {
             user.money += user.currentTurn.currentBet * 2;
-            console.log('GIVING DA MONEY', user.currentTurn.currentBet * 2);
+          }
+          else if (user.currentTurn.currentValue == game.dealer.currentTurn.currentValue) {
+            user.money += user.currentTurn.currentBet;
           }
         }
         user.currentTurn = {
@@ -227,8 +229,54 @@ io.on('connection', function (socket) {
 		switch (action.type) {
 			case config.actionConst.USER_HIT:
         user.dealCards(game.drawCards(1));
-        socket.emit('action', {type: config.actionConst.UPDATE_USER, user});
         io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
+        break;
+      case config.actionConst.USER_DOUBLE:
+        user.dealCards(game.drawCards(1));
+        user.money -= user.currentTurn.currentBet;
+        user.currentTurn.currentBet *= 2;
+        io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
+        if (game.currentPlayer + 1 <= game.users.length - 1) {
+          // Find next user who has bets
+          game.currentPlayer++;
+          var haveNotFoundNext = true;
+          while (haveNotFoundNext && game.currentPlayer < game.users.length) {
+            if (game.users[game.currentPlayer].currentTurn.currentBet <= 0) {
+              game.currentPlayer++;
+            }
+            else {
+              haveNotFoundNext = false;
+            }
+          }
+          if (haveNotFoundNext) {
+            // End playing phase
+            console.log('Ending playing phase...');
+            game.currentPhase = "DEALER_TURN";
+            io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
+
+            game.currentPlayer = -1;
+            game.currentUserId = game.dealer.id;
+            io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
+
+            setTimeout(dealDealer, 1000);
+          }
+          else {
+            game.currentUserId = game.users[game.currentPlayer].id;
+            io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
+          }
+        }
+        else {
+          // End playing phase
+          console.log('Ending playing phase...');
+          game.currentPhase = "DEALER_TURN";
+          io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
+
+          game.currentPlayer = -1;
+          game.currentUserId = game.dealer.id;
+          io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
+
+          setTimeout(dealDealer, 1000);
+        }
         break;
 			case config.actionConst.USER_HOLD:
         // user.dealCards(game.drawCards(1));
@@ -283,8 +331,6 @@ io.on('connection', function (socket) {
         break;
       case config.actionConst.USER_PLACE_BET:
         user.bet(action.money);
-        console.log('user', user);
-        console.log('game.users', game.users);
         socket.emit('action', {type: config.actionConst.UPDATE_USER, user});
         io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
         checkForAllUserBets();
