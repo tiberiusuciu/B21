@@ -36,7 +36,7 @@ const configureStore = () => {
 		config.defaults.defaultState,
 		compose(
 			applyMiddleware(
-				createLogger(),
+				// createLogger(),
 				socketIoMiddleware(io),
 			),
 		)

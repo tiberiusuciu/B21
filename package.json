@@ -1,10 +1,11 @@
 {
-  "name": "rpg-io",
+  "name": "B21",
   "version": "1.0.0",
-  "description": "Terminal based mmorpg",
+  "description": "Custom Made Black Jack",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "nodemon api/index.js --ignore components"
+    "dev": "nodemon api/index.js --ignore components",
+    "prod": "node api/index.js --ignore components"
   },
   "main": "index.js",
   "repository": "git@github.com:tiberiusuciu/rpg-io.git",
