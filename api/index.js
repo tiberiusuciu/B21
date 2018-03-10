@@ -348,8 +348,14 @@ io.on('connection', function (socket) {
 
         break;
       case config.actionConst.USER_MESSAGE_SUBMIT:
-        game.addMessageEntry(user.username, action.message);
-        io.emit('action', {type: config.actionConst.UPDATE_MESSAGE_LOGS, messages: game.messages});
+        if (action.message == "/help") {
+          game.addMessageEntry("Dealer", "Welcome to my BlackJack App! This is in alpha stage so things might be unstable. To place a bet, simply left click on the numbers at the bottom center of your screen to add to your betting pool. \n\nYou can also remove your bet by right clicking on those numbers! \n\n Sorry Phone users, a mobile friendly version will come out eventually!");
+          io.emit('action', {type: config.actionConst.UPDATE_MESSAGE_LOGS, messages: game.messages});
+        }
+        else {
+          game.addMessageEntry(user.username, action.message);
+          io.emit('action', {type: config.actionConst.UPDATE_MESSAGE_LOGS, messages: game.messages});
+        }
         if (game.messages.length > 100) {
           game.messages = [];
         }
