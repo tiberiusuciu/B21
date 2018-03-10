@@ -27,7 +27,6 @@ class PlayerTab extends Component {
 	}
 
 	render() {
-		console.log('currentUserId', this.props.currentUserId);
 		return (
 			<div>
 				{
