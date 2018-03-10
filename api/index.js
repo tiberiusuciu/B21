@@ -123,6 +123,9 @@ io.on('connection', function (socket) {
         game.addMessageEntry("Dealer", "Insufficient players betting, adding 15 more seconds!");
         io.emit('action', {type: config.actionConst.UPDATE_MESSAGE_LOGS, messages: game.messages});
         game.secondsPassed = 0;
+        if (game.messages.length > 100) {
+          game.messages = [];
+        }
       }
       else {
         game.secondsPassed++;
@@ -347,6 +350,9 @@ io.on('connection', function (socket) {
       case config.actionConst.USER_MESSAGE_SUBMIT:
         game.addMessageEntry(user.username, action.message);
         io.emit('action', {type: config.actionConst.UPDATE_MESSAGE_LOGS, messages: game.messages});
+        if (game.messages.length > 100) {
+          game.messages = [];
+        }
         break;
       case config.actionConst.USER_PLACE_BET:
         user.bet(action.money);
