@@ -349,13 +349,18 @@ io.on('connection', function (socket) {
         break;
       case config.actionConst.USER_MESSAGE_SUBMIT:
         if (action.message == "/help") {
-          game.addMessageEntry("Dealer", "Welcome to my BlackJack App! This is in alpha stage so things might be unstable. To place a bet, simply left click on the numbers at the bottom center of your screen to add to your betting pool. \n\nYou can also remove your bet by right clicking on those numbers! \n\n Sorry Phone users, a mobile friendly version will come out eventually!");
+          game.addMessageEntry("Dealer", "Welcome to my BlackJack App! This is in alpha stage so things might be unstable. To place a bet, simply left click on the numbers at the bottom center of your screen to add to your betting pool. \n\nYou can also remove your bet by right clicking on those numbers! \n\n Sorry Phone users, a mobile friendly version will come out eventually! Here are some commands: \n [/help] it displays this message, [/username (name)] it changes your current name");
           io.emit('action', {type: config.actionConst.UPDATE_MESSAGE_LOGS, messages: game.messages});
+          return;
         }
-        else {
-          game.addMessageEntry(user.username, action.message);
-          io.emit('action', {type: config.actionConst.UPDATE_MESSAGE_LOGS, messages: game.messages});
+        var tmp = action.message.split(" ");
+        if (tmp[0] == "/username") {
+          user.username = tmp[1];
+          io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
+          return;
         }
+        game.addMessageEntry(user.username, action.message);
+        io.emit('action', {type: config.actionConst.UPDATE_MESSAGE_LOGS, messages: game.messages});
         if (game.messages.length > 100) {
           game.messages = [];
         }
