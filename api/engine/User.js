@@ -7,6 +7,7 @@ var User = function(username, id) {
 		currentValue: 0,
 		currentBet: 0,
 		hasPlayed: false,
+		hasHit: false,
 		hasBust: false,
 		hasDoubled: false,
 		hasBlackJack: false,

@@ -28,14 +28,15 @@ class ActionPanel extends Component {
 	}
 
 	handleClick(type, e) {
-		console.log('find user', this.findUser(this.props.userId));
+		var user = this.findUser(this.props.userId);
+		console.log(user);
 		if (!this.findUser(this.props.userId).currentTurn.hasBust && type != "hold") {
 			if (type == "double") {
-				if (this.findUser(this.props.userId).money >= this.findUser(this.props.userId).currentTurn.currentBet && type == "double") {
+				if (user.money >= user.currentTurn.currentBet && type == "double" && !user.currentTurn.hasHit) {
 					this.props.handleAction(type);
 				}
 			}
-			else {
+			else if (type == "hit") {
 				this.props.handleAction(type);
 			}
 		}

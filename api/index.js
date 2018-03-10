@@ -170,6 +170,7 @@ io.on('connection', function (socket) {
       		currentBet: 0,
       		hasPlayed: false,
       		hasBust: false,
+          hasHit: false,
       		hasDoubled: false,
       		hasBlackJack: false,
       	};
@@ -208,6 +209,7 @@ io.on('connection', function (socket) {
           currentBet: 0,
           hasPlayed: false,
           hasBust: false,
+          hasHit: false,
           hasDoubled: false,
           hasBlackJack: false,
         };
@@ -239,6 +241,7 @@ io.on('connection', function (socket) {
 		switch (action.type) {
 			case config.actionConst.USER_HIT:
         user.dealCards(game.drawCards(1));
+        user.currentTurn.hasHit = true;
         io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
         break;
       case config.actionConst.USER_DOUBLE:
