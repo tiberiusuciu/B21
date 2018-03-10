@@ -6,7 +6,7 @@ var Deck = require('./Deck.js');
 
 function Game() {
 	console.log('instanciating Game engine...');
-	this.deck = new Deck(1);
+	this.deck = new Deck(8);
 	this.users = [];
 	this.dealer = new User('Dealer', -1);
 	this.messages = [];
