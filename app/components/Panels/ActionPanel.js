@@ -30,6 +30,16 @@ class ActionPanel extends Component {
 	handleClick(type, e) {
 		var user = this.findUser(this.props.userId);
 		console.log(user);
+		if (
+			type == "split" &&
+			user.currentTurn.cards.length == 2 &&
+			user.currentTurn.hasSplit == false &&
+			user.currentTurn.cards[0].charAt(0) == user.currentTurn.cards[1].charAt(0) &&
+			user.currentTurn.currentBet + user.currentTurn.currentBet <= user.money) {
+
+			this.props.handleAction(type);
+
+		}
 		if (!this.findUser(this.props.userId).currentTurn.hasBust && type != "hold") {
 			if (type == "double") {
 				if (user.money >= user.currentTurn.currentBet && type == "double" && !user.currentTurn.hasHit) {

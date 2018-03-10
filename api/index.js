@@ -173,6 +173,9 @@ io.on('connection', function (socket) {
           hasHit: false,
       		hasDoubled: false,
       		hasBlackJack: false,
+          hasSplit: false,
+      		splitCount: 0,
+      		splitHands: [],
       	};
       });
       game.dealer.currentTurn = {
@@ -212,6 +215,9 @@ io.on('connection', function (socket) {
           hasHit: false,
           hasDoubled: false,
           hasBlackJack: false,
+          hasSplit: false,
+      		splitCount: 0,
+      		splitHands: [],
         };
       });
       game.dealer.currentTurn = {
@@ -333,6 +339,28 @@ io.on('connection', function (socket) {
           setTimeout(dealDealer, 1000);
         }
 
+        break;
+      case "USER_SPLIT":
+        if (!user.currentTurn.hasSplit) {
+          user.currentTurn.hasSplit = true;
+          user.currentTurn.splitCount = 0;
+          user.currentTurn.currentSplitHand = 0;
+          user.money -= user.currentTurn.currentBet;
+          user.currentTurn.splitHands[user.currentTurn.splitCount] = {
+            cards: [],
+        		currentValue: 0,
+        		currentBet: user.currentTurn.currentBet,
+        		hasPlayed: false,
+        		hasHit: false,
+        		hasBust: false,
+        		hasDoubled: false,
+        		hasSplit: false,
+        		splitCount: 0,
+        		splitHands: [],
+        		currentSplitHand: 0,
+        		hasBlackJack: false,
+          }
+        }
         break;
       case config.actionConst.USER_MESSAGE_SUBMIT:
         game.addMessageEntry(user.username, action.message);

@@ -10,6 +10,10 @@ var User = function(username, id) {
 		hasHit: false,
 		hasBust: false,
 		hasDoubled: false,
+		hasSplit: false,
+		splitCount: 0,
+		splitHands: [],
+		currentSplitHand: 0,
 		hasBlackJack: false,
 	}
 }
