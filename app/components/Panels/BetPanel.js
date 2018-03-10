@@ -39,10 +39,10 @@ class BetPanel extends Component {
 				<div className={styles.BetMoney}>Available Money: {this.findUser(this.props.userId).money} </div>
         <div className={styles.BetAnnouncement}>Current Bet: {this.findUser(this.props.userId).currentTurn.currentBet} </div>
         <div className={styles.BetOptions}>
-          <div className={styles.PlayerBetButton} onClick={(e) => {this.handleBetClick(5, e)}} onContextMenu={(e) => {this.handleBetClick(5, e)}}>5</div>
-          <div className={styles.PlayerBetButton} onClick={(e) => {this.handleBetClick(10, e)}} onContextMenu={(e) => {this.handleBetClick(10, e)}}>10</div>
-          <div className={styles.PlayerBetButton} onClick={(e) => {this.handleBetClick(50, e)}} onContextMenu={(e) => {this.handleBetClick(50, e)}}>50</div>
-          <div className={styles.PlayerBetButton} onClick={(e) => {this.handleBetClick(100, e)}} onContextMenu={(e) => {this.handleBetClick(100, e)}}>100</div>
+          <div className={styles.PlayerBetButton + " " + styles.noselect} onClick={(e) => {this.handleBetClick(5, e)}} onContextMenu={(e) => {this.handleBetClick(5, e)}}>5</div>
+          <div className={styles.PlayerBetButton + " " + styles.noselect} onClick={(e) => {this.handleBetClick(10, e)}} onContextMenu={(e) => {this.handleBetClick(10, e)}}>10</div>
+          <div className={styles.PlayerBetButton + " " + styles.noselect} onClick={(e) => {this.handleBetClick(50, e)}} onContextMenu={(e) => {this.handleBetClick(50, e)}}>50</div>
+          <div className={styles.PlayerBetButton + " " + styles.noselect} onClick={(e) => {this.handleBetClick(100, e)}} onContextMenu={(e) => {this.handleBetClick(100, e)}}>100</div>
         </div>
 			</div>
 		)
