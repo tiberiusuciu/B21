@@ -12,7 +12,8 @@ class TablesPanel extends Component {
         <div className={styles.SplitTableDimensions}>
           <DealerPanel
 						dealer={this.props.dealer}
-						currentPhase={this.props.currentPhase} />
+						currentPhase={this.props.currentPhase}
+						secondsPassed={this.props.secondsPassed} />
           <PlayerPanel
 						handleAction={this.props.handleAction}
 						handleBetClick={this.props.handleBetClick}

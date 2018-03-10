@@ -14,6 +14,7 @@ function Game() {
 	this.firstCardDealt = false;
 	this.currentPlayer = -1;
 	this.currentUserId = -1;
+	this.secondsPassed = 0;
 }
 
 Game.prototype.addUser = function(username, id) {

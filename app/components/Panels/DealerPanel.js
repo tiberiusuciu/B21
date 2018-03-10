@@ -12,6 +12,8 @@ class DealerPanel extends Component {
 					dealer={this.props.dealer}
 					currentPhase={this.props.currentPhase}
 					isDealer />
+				{this.props.currentPhase == "BETTING" ? (<div className={styles.TimeAnnouncement}>Game starts in {30 - this.props.secondsPassed} seconds!</div>) : null}
+
 			</div>
 		)
 	}

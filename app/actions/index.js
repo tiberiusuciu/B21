@@ -17,6 +17,7 @@ export const GAME_PHASE_CHANGE = config.actionConst.GAME_PHASE_CHANGE;
 export const ASSIGN_ID = config.actionConst.ASSIGN_ID;
 export const UPDATE_CURRENT_USER_ID = config.actionConst.UPDATE_CURRENT_USER_ID;
 export const UPDATE_DEALER = config.actionConst.UPDATE_DEALER;
+export const GAME_TICK = config.actionConst.GAME_TICK;
 export const USER_HIT = 'USER_HIT';
 export const USER_SPLIT = 'USER_SPLIT';
 export const USER_DOUBLE = 'USER_DOUBLE';

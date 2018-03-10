@@ -2,6 +2,7 @@ import {
   GAME_PHASE_CHANGE,
   UPDATE_CURRENT_USER_ID,
   UPDATE_DEALER,
+  GAME_TICK,
 } from '../actions';
 
 const currentPhase = (state = '', action) => {
@@ -26,6 +27,15 @@ const currentPlayer = (state = -1, action) => {
   switch (action.type) {
     case UPDATE_CURRENT_USER_ID:
       return action.currentPlayer;
+    default:
+      return state;
+  }
+};
+
+const secondsPassed = (state = 0, action) => {
+  switch (action.type) {
+    case GAME_TICK:
+      return action.seconds;
     default:
       return state;
   }
@@ -58,4 +68,5 @@ export default ({
   currentUserId,
   currentPlayer,
   dealer,
+  secondsPassed,
 });

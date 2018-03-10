@@ -20,6 +20,7 @@ module.exports = {
 		ASSIGN_ID: 'ASSIGN_ID',
 		UPDATE_CURRENT_USER_ID: 'UPDATE_CURRENT_USER_ID',
 		UPDATE_DEALER: 'UPDATE_DEALER',
+		GAME_TICK: 'GAME_TICK',
 	},
 	commandNames: {
 		EAT: 'eat',

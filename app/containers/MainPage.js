@@ -28,6 +28,7 @@ const mapStateToProps = (state, ownProps) => {
 		currentUserId: state.currentUserId,
 		currentPlayer: state.currentPlayer,
 		dealer: state.dealer,
+		secondsPassed: state.secondsPassed
 		// referredId: ownProps.location.query.referredId,
 	};
 };

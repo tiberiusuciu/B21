@@ -109,15 +109,24 @@ io.on('connection', function (socket) {
         canBeginTurn = true;
       }
     });
-    if (canBeginTurn && game.currentPhase == "BETTING") {
+    if (canBeginTurn && game.currentPhase == "BETTING" && game.secondsPassed >= 30) {
       game.currentPhase = "DEALING";
       game.currentPlayer = 0;
+      game.secondsPassed = 0;
       game.currentUserId = game.users[game.currentPlayer].id;
       io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
+      io.emit('action', {type: config.actionConst.GAME_TICK, seconds: game.secondsPassed});
       dealHand();
     }
-    else {
-      timer = setTimeout(awaitingBetting, 15000);
+    else if (game.currentPhase == "BETTING"){
+      if (game.secondsPassed >= 30) {
+        game.secondsPassed = 0;
+      }
+      else {
+        game.secondsPassed++;
+      }
+      io.emit('action', {type: config.actionConst.GAME_TICK, seconds: game.secondsPassed});
+      timer = setTimeout(awaitingBetting, 1000);
     }
   };
 
@@ -126,20 +135,20 @@ io.on('connection', function (socket) {
     game.currentPhase = "BETTING";
     io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
     var timer;
-    timer = setTimeout(awaitingBetting, 15000);
+    timer = setTimeout(awaitingBetting, 1000);
   }
 
-  var checkForAllUserBets = () => {
-    var canBeginTurn = true;
-    game.users.map((user) => {
-      if (user.currentTurn.currentBet <= 0) {
-        canBeginTurn = false;
-      }
-    });
-    if (canBeginTurn) {
-      awaitingBetting();
-    }
-  };
+  // var checkForAllUserBets = () => {
+  //   var canBeginTurn = true;
+  //   game.users.map((user) => {
+  //     if (user.currentTurn.currentBet <= 0) {
+  //       canBeginTurn = false;
+  //     }
+  //   });
+  //   if (canBeginTurn) {
+  //     awaitingBetting();
+  //   }
+  // };
 
   var dealDealer = () => {
     if (game.dealer.currentTurn.currentValue < 17) {
@@ -179,8 +188,8 @@ io.on('connection', function (socket) {
         game.currentPhase = "BETTING";
         game.firstCardDealt = false;
         io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
-        setTimeout(awaitingBetting, 15000);
-      }, 3000)
+        setTimeout(awaitingBetting, 1000);
+      }, 5000)
     }
     else {
       game.users.map((user) => {
@@ -217,7 +226,7 @@ io.on('connection', function (socket) {
         game.currentPhase = "BETTING";
         game.firstCardDealt = false;
         io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
-        setTimeout(awaitingBetting, 15000);
+        setTimeout(awaitingBetting, 1000);
       }, 5000)
     }
     // game.dealer.dealCards(game.drawCards(1));
@@ -333,7 +342,7 @@ io.on('connection', function (socket) {
         user.bet(action.money);
         socket.emit('action', {type: config.actionConst.UPDATE_USER, user});
         io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
-        checkForAllUserBets();
+        //checkForAllUserBets();
         break;
       default:
         break;
