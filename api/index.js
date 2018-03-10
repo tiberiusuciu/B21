@@ -99,6 +99,61 @@ io.on('connection', function (socket) {
 
       game.currentPhase = "PLAYING";
       io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
+      startTimer();
+    }
+  };
+
+  var startTimer = () => {
+    if (game.currentPhase == "PLAYING") {
+      game.secondsPassed++;
+      io.emit('action', {type: config.actionConst.GAME_TICK, seconds: game.secondsPassed});
+      if(game.secondsPassed >= 30) {
+        game.secondsPassed = 0;
+        io.emit('action', {type: config.actionConst.GAME_TICK, seconds: game.secondsPassed});
+        if (game.currentPlayer + 1 <= game.users.length - 1) {
+          // Find next user who has bets
+          game.currentPlayer++;
+          var haveNotFoundNext = true;
+          while (haveNotFoundNext && game.currentPlayer < game.users.length) {
+            if (game.users[game.currentPlayer].currentTurn.currentBet <= 0) {
+              game.currentPlayer++;
+            }
+            else {
+              haveNotFoundNext = false;
+            }
+          }
+          if (haveNotFoundNext) {
+            // End playing phase
+            game.currentPhase = "DEALER_TURN";
+            io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
+
+            game.currentPlayer = -1;
+            game.currentUserId = game.dealer.id;
+            io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
+
+            setTimeout(dealDealer, 1000);
+          }
+          else {
+            game.currentUserId = game.users[game.currentPlayer].id;
+            io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
+            setTimeout(startTimer, 1000);
+          }
+        }
+        else {
+          // End playing phase
+          game.currentPhase = "DEALER_TURN";
+          io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
+
+          game.currentPlayer = -1;
+          game.currentUserId = game.dealer.id;
+          io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
+
+          setTimeout(dealDealer, 1000);
+        }
+      }
+      else {
+        setTimeout(startTimer, 1000);
+      }
     }
   };
 
@@ -253,11 +308,15 @@ io.on('connection', function (socket) {
 	socket.on("action", function (action) {
 		switch (action.type) {
 			case config.actionConst.USER_HIT:
+        game.secondsPassed = 0;
+        io.emit('action', {type: config.actionConst.GAME_TICK, seconds: game.secondsPassed});
         user.dealCards(game.drawCards(1));
         user.currentTurn.hasHit = true;
         io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
         break;
       case config.actionConst.USER_DOUBLE:
+        game.secondsPassed = 0;
+        io.emit('action', {type: config.actionConst.GAME_TICK, seconds: game.secondsPassed});
         user.dealCards(game.drawCards(1));
         user.money -= user.currentTurn.currentBet;
         user.currentTurn.currentBet *= 2;
@@ -303,6 +362,8 @@ io.on('connection', function (socket) {
         }
         break;
 			case config.actionConst.USER_HOLD:
+        game.secondsPassed = 0;
+        io.emit('action', {type: config.actionConst.GAME_TICK, seconds: game.secondsPassed});
         // user.dealCards(game.drawCards(1));
         // socket.emit('action', {type: config.actionConst.UPDATE_USER, user});
         // io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
@@ -379,6 +440,8 @@ io.on('connection', function (socket) {
 	socket.on("disconnect", function () {
 
     if (user.id == game.currentUserId) {
+      game.secondsPassed = 0;
+      io.emit('action', {type: config.actionConst.GAME_TICK, seconds: game.secondsPassed});
       if (game.currentPlayer + 1 <= game.users.length - 1) {
         // Find next user who has bets
         game.currentPlayer++;
@@ -419,7 +482,6 @@ io.on('connection', function (socket) {
         setTimeout(dealDealer, 1000);
       }
     }
-
     game.removeUser(user.id);
     io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
 		console.log('A user has disconnected!');
