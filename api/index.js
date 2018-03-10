@@ -162,7 +162,12 @@ io.on('connection', function (socket) {
       game.dealer.currentTurn.hasBust = true;
       game.users.map((user) => {
         if(!user.currentTurn.hasBust) {
-          user.money += user.currentTurn.currentBet * 2;
+          if (user.currentTurn.hasBlackJack) {
+            user.money += user.currentTurn.currentBet * 2.5;
+          }
+          else {
+            user.money += user.currentTurn.currentBet * 2;
+          }
         }
         user.currentTurn = {
       		cards: [],
@@ -197,7 +202,12 @@ io.on('connection', function (socket) {
       game.users.map((user) => {
         if(!user.currentTurn.hasBust) {
           if (user.currentTurn.currentValue > game.dealer.currentTurn.currentValue) {
-            user.money += user.currentTurn.currentBet * 2;
+            if (user.currentTurn.hasBlackJack) {
+              user.money += user.currentTurn.currentBet * 2.5;
+            }
+            else {
+              user.money += user.currentTurn.currentBet * 2;
+            }
           }
           else if (user.currentTurn.currentValue == game.dealer.currentTurn.currentValue) {
             user.money += user.currentTurn.currentBet;
