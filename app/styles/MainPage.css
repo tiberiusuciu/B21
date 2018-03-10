@@ -183,6 +183,11 @@
 	margin-bottom: 10px;
 }
 
+:local(.BetMoney) {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
 :local(.BetOptions) {
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#88d7fc+0,bd07f4+99 */
 	background: #88d7fc; /* Old browsers */
