@@ -109,7 +109,7 @@ io.on('connection', function (socket) {
         canBeginTurn = true;
       }
     });
-    if (canBeginTurn && game.currentPhase == "BETTING" && game.secondsPassed >= 30) {
+    if (canBeginTurn && game.currentPhase == "BETTING" && game.secondsPassed >= 15) {
       game.currentPhase = "DEALING";
       game.currentPlayer = 0;
       game.secondsPassed = 0;
@@ -119,7 +119,9 @@ io.on('connection', function (socket) {
       dealHand();
     }
     else if (game.currentPhase == "BETTING"){
-      if (game.secondsPassed >= 30) {
+      if (game.secondsPassed >= 15) {
+        game.addMessageEntry("Dealer", "Insufficient players betting, adding 15 more seconds!");
+        io.emit('action', {type: config.actionConst.UPDATE_MESSAGE_LOGS, messages: game.messages});
         game.secondsPassed = 0;
       }
       else {
@@ -161,7 +163,6 @@ io.on('connection', function (socket) {
       game.users.map((user) => {
         if(!user.currentTurn.hasBust) {
           user.money += user.currentTurn.currentBet * 2;
-          console.log('GIVING DA MONEY', user.currentTurn.currentBet * 2);
         }
         user.currentTurn = {
       		cards: [],
@@ -259,7 +260,6 @@ io.on('connection', function (socket) {
           }
           if (haveNotFoundNext) {
             // End playing phase
-            console.log('Ending playing phase...');
             game.currentPhase = "DEALER_TURN";
             io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
 
@@ -276,7 +276,6 @@ io.on('connection', function (socket) {
         }
         else {
           // End playing phase
-          console.log('Ending playing phase...');
           game.currentPhase = "DEALER_TURN";
           io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
 
@@ -305,7 +304,6 @@ io.on('connection', function (socket) {
           }
           if (haveNotFoundNext) {
             // End playing phase
-            console.log('Ending playing phase...');
             game.currentPhase = "DEALER_TURN";
             io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
 
@@ -322,7 +320,6 @@ io.on('connection', function (socket) {
         }
         else {
           // End playing phase
-          console.log('Ending playing phase...');
           game.currentPhase = "DEALER_TURN";
           io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
 
