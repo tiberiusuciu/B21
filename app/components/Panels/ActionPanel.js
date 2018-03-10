@@ -5,7 +5,6 @@ import styles from '../../styles/MainPage.css';
 class ActionPanel extends Component {
 
 	findUser(id) {
-		console.log('users', this.props.users);
 		var found = false;
 		var user;
 		for (var i = 0; i < this.props.users.length; i++) {
@@ -29,7 +28,16 @@ class ActionPanel extends Component {
 
 	handleClick(type, e) {
 		var user = this.findUser(this.props.userId);
-		console.log(user);
+		if (
+			type == "split" &&
+			user.currentTurn.cards.length == 2 &&
+			user.currentTurn.hasSplit == false &&
+			user.currentTurn.cards[0].charAt(0) == user.currentTurn.cards[1].charAt(0) &&
+			user.currentTurn.currentBet + user.currentTurn.currentBet <= user.money) {
+
+			this.props.handleAction(type);
+
+		}
 		if (!this.findUser(this.props.userId).currentTurn.hasBust && type != "hold") {
 			if (type == "double") {
 				if (user.money >= user.currentTurn.currentBet && type == "double" && !user.currentTurn.hasHit) {

@@ -21,7 +21,6 @@ User.prototype.dealCards = function(newCards) {
 		this.currentTurn.hasBust = true;
 	}
 	else if (this.currentTurn.currentValue == 21 && this.currentTurn.cards.length == 2) {
-		console.log("BLACKJACK!!");
 		this.currentTurn.hasBlackJack = true;
 	}
 };

@@ -360,6 +360,49 @@ io.on('connection', function (socket) {
 	})
 
 	socket.on("disconnect", function () {
+
+    if (user.id == game.currentUserId) {
+      if (game.currentPlayer + 1 <= game.users.length - 1) {
+        // Find next user who has bets
+        game.currentPlayer++;
+        var haveNotFoundNext = true;
+        while (haveNotFoundNext && game.currentPlayer < game.users.length) {
+          if (game.users[game.currentPlayer].currentTurn.currentBet <= 0) {
+            game.currentPlayer++;
+          }
+          else {
+            haveNotFoundNext = false;
+          }
+        }
+        if (haveNotFoundNext) {
+          // End playing phase
+          game.currentPhase = "DEALER_TURN";
+          io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
+
+          game.currentPlayer = -1;
+          game.currentUserId = game.dealer.id;
+          io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
+
+          setTimeout(dealDealer, 1000);
+        }
+        else {
+          game.currentUserId = game.users[game.currentPlayer].id;
+          io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
+        }
+      }
+      else {
+        // End playing phase
+        game.currentPhase = "DEALER_TURN";
+        io.emit('action', {type: config.actionConst.GAME_PHASE_CHANGE, currentPhase: game.currentPhase});
+
+        game.currentPlayer = -1;
+        game.currentUserId = game.dealer.id;
+        io.emit('action', {type: config.actionConst.UPDATE_CURRENT_USER_ID, currentUserId: game.currentUserId, currentPlayer: game.currentPlayer});
+
+        setTimeout(dealDealer, 1000);
+      }
+    }
+
     game.removeUser(user.id);
     io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
 		console.log('A user has disconnected!');
