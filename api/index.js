@@ -175,8 +175,10 @@ io.on('connection', function (socket) {
     }
     else if (game.currentPhase == "BETTING"){
       if (game.secondsPassed >= 15) {
-        game.addMessageEntry("Dealer", "Insufficient players betting, adding 15 more seconds!");
-        io.emit('action', {type: config.actionConst.UPDATE_MESSAGE_LOGS, messages: game.messages});
+        if (game.users.length > 0) {
+          game.addMessageEntry("Dealer", "Insufficient players betting, adding 15 more seconds!");
+          io.emit('action', {type: config.actionConst.UPDATE_MESSAGE_LOGS, messages: game.messages});
+        }
         game.secondsPassed = 0;
         if (game.messages.length > 100) {
           game.messages = [];
@@ -484,6 +486,9 @@ io.on('connection', function (socket) {
     }
     game.removeUser(user.id);
     io.emit('action', {type: config.actionConst.UPDATE_USERS, users: game.users});
+    if (game.users.length <= 0) {
+      game.messages = [];
+    }
 		console.log('A user has disconnected!');
 	})
 });
