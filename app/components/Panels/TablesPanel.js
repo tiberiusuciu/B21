@@ -13,6 +13,8 @@ class TablesPanel extends Component {
           <DealerPanel
 						dealer={this.props.dealer}
 						currentPhase={this.props.currentPhase}
+						users={this.props.users}
+						currentPlayer={this.props.currentPlayer}
 						secondsPassed={this.props.secondsPassed} />
           <PlayerPanel
 						handleAction={this.props.handleAction}

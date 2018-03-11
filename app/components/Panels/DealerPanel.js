@@ -13,7 +13,7 @@ class DealerPanel extends Component {
 					currentPhase={this.props.currentPhase}
 					isDealer />
 				{this.props.currentPhase == "BETTING" ? (<div className={styles.TimeAnnouncement}>Game starts in {15 - this.props.secondsPassed} seconds!</div>) : null}
-				{this.props.currentPhase == "PLAYING" ? (<div className={styles.TimeAnnouncement}>User's time left: {30 - this.props.secondsPassed} seconds</div>) : null}
+				{this.props.currentPhase == "PLAYING" ? (<div className={styles.TimeAnnouncement}>{this.props.users[this.props.currentPlayer].username}'s time left: {30 - this.props.secondsPassed} seconds</div>) : null}
 			</div>
 		)
 	}
