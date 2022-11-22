@@ -33,7 +33,7 @@
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.15.3",
     "redux-socket.io-middleware": "^1.0.4",
-    "socket.io": "^2.0.3",
+    "socket.io": "^2.5.0",
     "socket.io-client": "^2.0.3",
     "webpack": "^1.12.13",
     "webpack-dev-middleware": "^1.10.2",
